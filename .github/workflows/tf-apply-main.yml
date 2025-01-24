@@ -58,6 +58,16 @@ jobs:
     - name: Install boto3
       run: pip install boto3
 
+    - name: Install Terraform
+      run: |
+        sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt-get update && sudo apt-get install -y terraform
+
+    - name: Verify Terraform installation
+      run: terraform -v
+
     - name: Terraform Operations
       run: |
         set -e  # Exit immediately if a command exits with a non-zero status
